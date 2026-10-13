@@ -74,6 +74,9 @@ backend/app/testTools/outlineRewriter/OfficeCLI-main.zip
 backend/app/testTools/outlineRewriter/logs/
 backend/app/testTools/outlineRewriter/uploads/
 
+# === Agent / IDE 工作数据（不入库） ===
+.workbuddy/
+
 # === 其他 ===
 .DS_Store
 Thumbs.db
