@@ -1,0 +1,47 @@
+{
+  "department_to_domain": {
+    "图像部": "光电领域",
+    "光电部": "光电领域", 
+    "激光部": "光电领域",
+    "光电系统一部": "光电领域",
+    "光电系统二部": "光电领域",
+    "光电系统三部": "光电领域",
+    "光电系统四部": "光电领域",
+    "光电系统一部/控制室": "光电领域",
+    "光电系统二部/控制室": "光电领域",
+    "光电系统三部/控制室": "光电领域",
+    "光电系统四部/控制室": "光电领域",
+    "瞄准显示部": "显示领域",
+    "总体部": "火控领域",
+    "重点实验室": "火控领域",
+    "武控部": "外挂领域"
+  },
+  "domain_personnel": {
+    "光电领域": {
+      "test_manager": "李玲子",
+      "test_personnel": "王凯旋(外协)"
+    },
+    "显示领域": {
+      "test_manager": "牛婷婷", 
+      "test_personnel": "李岩岩(外协)"
+    },
+    "火控领域": {
+      "test_manager": "李佳真",
+      "test_personnel": "王刚(外协)"
+    },
+    "外挂领域": {
+      "test_manager": "武慧莹",
+      "test_personnel": "王星(外协)"
+    }
+  },
+  "field_descriptions": {
+    "developer": "申请人",
+    "software_name": "软件名称（通常是产品型号+产品+软件配置项名称，如：DDBBTEEE超级搜索雷达随动控制软件）",
+    "software_version": "软件版本",
+    "software_id": "课题代号",
+    "aircraft_model": "机型",
+    "project_director": "项目主管总师",
+    "development_department": "申请部门",
+    "chief_designer": "主任设计师"
+  }
+} 

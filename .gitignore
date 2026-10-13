@@ -49,9 +49,11 @@ backend/app/codeReview/RegressionTest/*.log
 backend/app/codeReview/RegressionTest/*.jsonl
 backend/app/codeReview/RegressionTest/*.zip
 
-# 动态测试 - 排除测试数据
-backend/app/danamicTest/ConfigurationItem/
-backend/app/danamicTest/Regression/
+# 动态测试 - 保留源码，仅排除模型/数据库等运行时大文件
+# （logs/、.env、__pycache__ 已由上方全局规则忽略）
+backend/app/danamicTest/**/resources/argos-translate/
+backend/app/danamicTest/**/resources/cnocrModels/
+backend/app/danamicTest/**/*.db
 
 # 测试工具 - 排除大二进制和示例文件
 backend/app/testTools/outlineRewriter/*.zip
