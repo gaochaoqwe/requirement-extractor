@@ -1,0 +1,78 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                    .env 文件配置说明                              ║
+╚══════════════════════════════════════════════════════════════════╝
+
+✅ .env 文件位置（当前目录）：
+   E:\code\requirement_extractor\backend\app\codeReview\ConfigurationItem\.env
+
+✅ 示例文件位置（当前目录）：
+   E:\code\requirement_extractor\backend\app\codeReview\ConfigurationItem\env.example
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📂 目录结构：
+
+backend/
+└── app/
+    └── codeReview/
+        └── ConfigurationItem/
+            ├── .env                    ← 你在这里！✅
+            ├── env.example             ← 示例文件
+            ├── .env说明.txt            ← 说明文件（当前文件）
+            └── db/
+                ├── database.py         ← 加载 .env
+                ├── database_chain.py   ← 加载 .env
+                └── database_feature.py ← 加载 .env
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 .env 文件内容说明：
+
+POSTGRES_HOST=localhost          # PostgreSQL 服务器地址
+POSTGRES_PORT=5432               # PostgreSQL 端口
+POSTGRES_DB=code_review          # 数据库名称（统一）
+POSTGRES_USER=code_review        # 数据库用户
+POSTGRES_PASSWORD=123456         # 数据库密码
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 使用流程：
+
+1. 确认 .env 文件存在（当前目录）
+   
+2. 初始化数据库：
+   cd db
+   python init_postgresql.py
+   
+3. 启动服务：
+   cd E:\code\requirement_extractor\backend
+   python run_fastapi.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 重要提示：
+
+✅ .env 文件已在 .gitignore 中，不会提交到 Git
+✅ 所有数据库配置模块会自动从这里加载配置
+✅ 默认密码是 123456，生产环境请修改
+✅ 三个审查模块（函数/链路/功能）使用同一个数据库
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ 常见问题：
+
+Q: 为什么 .env 文件放在这里？
+A: 因为数据库模块 (db/database*.py) 通过 parent.parent 路径加载，
+   正好指向这个目录。这样配置文件和模块放在一起，更加内聚。
+
+Q: 可以放在其他地方吗？
+A: 可以，但需要修改 database.py 等文件中的加载路径。
+   当前位置是最佳选择。
+
+Q: 如何验证配置是否生效？
+A: 运行 python db/verify_database.py 检查数据库连接。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+更新日期：2025-11-02
+

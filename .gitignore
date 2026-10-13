@@ -41,8 +41,10 @@ backend/temp/
 backend/*.txt
 
 # === 测试数据和大文件（只保留源码） ===
-# 代码审查 - 排除测试日志和大数据
-backend/app/codeReview/ConfigurationItem/
+# 代码审查 - 保留源码，仅排除运行时日志与第三方工具
+# （logs/、.env、__pycache__ 已由上方全局规则忽略）
+backend/app/codeReview/ConfigurationItem/utils/cline-main/
+backend/app/codeReview/ConfigurationItem/utils/cline-main.zip
 backend/app/codeReview/RegressionTest/*.log
 backend/app/codeReview/RegressionTest/*.jsonl
 backend/app/codeReview/RegressionTest/*.zip

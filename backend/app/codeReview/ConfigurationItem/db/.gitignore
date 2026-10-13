@@ -1,0 +1,12 @@
+# SQLite数据库文件（已迁移到PostgreSQL）
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# 仅保留PostgreSQL相关配置和脚本
+!README_POSTGRESQL.md
+!*.py
+!*.bat
+!*.md
+
