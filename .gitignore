@@ -27,6 +27,9 @@ uploads/
 node_modules/
 frontend_vue/dist/
 frontend_vue/.env.*
+!frontend_vue/.env.production
+!frontend_vue/.env.simple
+!frontend_vue/.env.standard
 frontend_vue/caddy*.exe
 frontend_vue/caddy.7z
 frontend_vue/dist.7z
@@ -38,7 +41,7 @@ backend/logs/
 backend/uploads/
 backend/outputs/
 backend/temp/
-backend/*.txt
+backend/output*.txt
 
 # === 测试数据和大文件（只保留源码） ===
 # 代码审查 - 保留源码，仅排除运行时日志与第三方工具
@@ -65,7 +68,11 @@ backend/app/testTools/outlineRewriter/*.webp
 
 # === 第三方工具代码（不入库） ===
 backend/app/codeReview/RegressionTest/utils/cline-main/
-backend/app/testTools/outlineRewriter/
+# 大纲重写工具：保留本项目源码，仅排除第三方 OfficeCLI（76MB）及运行时目录
+backend/app/testTools/outlineRewriter/OfficeCLI-main/
+backend/app/testTools/outlineRewriter/OfficeCLI-main.zip
+backend/app/testTools/outlineRewriter/logs/
+backend/app/testTools/outlineRewriter/uploads/
 
 # === 其他 ===
 .DS_Store
