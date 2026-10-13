@@ -1,0 +1,79 @@
+:8085 {
+	# 🚀 根据Caddy官方文档重新配置
+	
+	# 启用压缩
+	encode gzip
+	
+	# API反向代理 - 必须在其他处理之前！
+	handle /api/* {
+		reverse_proxy {
+			# 内网：4个后端进程负载均衡
+			to localhost:5002 localhost:5003 localhost:5004 localhost:5005
+			
+			# 会话保持策略：确保同一IP的请求落到同一后端
+			# 解决多worker内存缓存不一致问题
+			lb_policy ip_hash
+			
+			# 健康检查（可选）
+			health_uri /api/staticAnalysis/filter/health
+			health_interval 30s
+			
+			# 设置超时时间
+			transport http {
+				dial_timeout 60s
+				response_header_timeout 300s
+			}
+			# 设置请求头
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+			header_up X-Forwarded-For {remote_host}
+			header_up X-Forwarded-Proto {scheme}
+		}
+	}
+	
+	# 静态文件服务 - SPA应用
+	handle {
+		# 设置网站根目录
+		root * dist
+		
+		# 设置静态资源缓存
+		@static {
+			path *.js *.css *.png *.jpg *.jpeg *.gif *.ico *.svg *.woff *.woff2 *.ttf *.eot
+		}
+		header @static Cache-Control "public, max-age=31536000, immutable"
+		
+		# HTML文件不缓存
+		@html {
+			path *.html
+		}
+		header @html Cache-Control "no-cache, no-store, must-revalidate"
+		header @html Pragma "no-cache"
+		
+		# 支持Vue Router的history模式
+		try_files {path} /index.html
+		
+		# 启用文件服务
+		file_server
+	}
+	
+	# 全局CORS头
+	header {
+		Access-Control-Allow-Origin "*"
+		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+		Access-Control-Allow-Headers "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+		Access-Control-Expose-Headers "Content-Length,Content-Range"
+	}
+	
+	# 处理OPTIONS预检请求
+	@options method OPTIONS
+	respond @options 204
+	
+	# 日志配置
+	log {
+		output file logs/caddy.log {
+			roll_size 10mb
+			roll_keep 5
+		}
+		format console
+	}
+} 

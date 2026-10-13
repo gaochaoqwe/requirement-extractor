@@ -1,0 +1,374 @@
+{
+  "project": {
+    "name": "small_test",
+    "root": "tests\\small_test",
+    "language": "c",
+    "total_functions": 25,
+    "total_files": 6,
+    "total_call_edges": 3
+  },
+  "functions": {
+    "cross_file_calls:: x) {\n    int square": {
+      "name": " x) {\n    int square",
+      "file": "cross_file_calls.c",
+      "line": 5,
+      "end_line": 13,
+      "signature": "s(in  x) {\n    int square(d = squ)",
+      "return_type": "s(in",
+      "parameters": "d = squ",
+      "is_static": false,
+      "is_main": false
+    },
+    "math_utils::square": {
+      "name": "square",
+      "file": "math_utils.c",
+      "line": 3,
+      "end_line": 5,
+      "signature": "int square(int x)",
+      "return_type": "int",
+      "parameters": "int x",
+      "is_static": false,
+      "is_main": false
+    },
+    "math_utils::sqrt_custom": {
+      "name": "sqrt_custom",
+      "file": "math_utils.c",
+      "line": 7,
+      "end_line": 13,
+      "signature": "double sqrt_custom(double x)",
+      "return_type": "double",
+      "parameters": "double x",
+      "is_static": false,
+      "is_main": false
+    },
+    "math_utils::factorial": {
+      "name": "factorial",
+      "file": "math_utils.c",
+      "line": 15,
+      "end_line": 18,
+      "signature": "int factorial(int n)",
+      "return_type": "int",
+      "parameters": "int n",
+      "is_static": false,
+      "is_main": false
+    },
+    "same_file_calls::) {": {
+      "name": ") {",
+      "file": "same_file_calls.c",
+      "line": 4,
+      "end_line": 6,
+      "signature": "nt  ) {(\n    return a )",
+      "return_type": "nt ",
+      "parameters": "\n    return a ",
+      "is_static": false,
+      "is_main": false
+    },
+    "same_file_calls::int b) {": {
+      "name": "int b) {",
+      "file": "same_file_calls.c",
+      "line": 12,
+      "end_line": 14,
+      "signature": " a, int b) {(\n    return a )",
+      "return_type": " a,",
+      "parameters": "\n    return a ",
+      "is_static": false,
+      "is_main": false
+    },
+    "same_file_calls::t b) {": {
+      "name": "t b) {",
+      "file": "same_file_calls.c",
+      "line": 16,
+      "end_line": 21,
+      "signature": ", i t b) {(\n    if (b != )",
+      "return_type": ", i",
+      "parameters": "\n    if (b != ",
+      "is_static": false,
+      "is_main": false
+    },
+    "same_file_calls::sult1 = add(x": {
+      "name": "sult1 = add(x",
+      "file": "same_file_calls.c",
+      "line": 24,
+      "end_line": 31,
+      "signature": "t r sult1 = add(x(, y);        /)",
+      "return_type": "t r",
+      "parameters": ", y);        /",
+      "is_static": false,
+      "is_main": false
+    },
+    "test_macros_arrays::VALUE;  // 使用简单宏": {
+      "name": "VALUE;  // 使用简单宏",
+      "file": "test_macros_arrays.c",
+      "line": 22,
+      "end_line": 35,
+      "signature": " MIN VALUE;  // 使用简单宏(\n )",
+      "return_type": " MIN",
+      "parameters": "\n ",
+      "is_static": false,
+      "is_main": false
+    },
+    "test_macros_arrays::\n    // 使用静态数组\n ": {
+      "name": "\n    // 使用静态数组\n ",
+      "file": "test_macros_arrays.c",
+      "line": 38,
+      "end_line": 60,
+      "signature": "\n    \n    // 使用静态数组\n (  )",
+      "return_type": "\n   ",
+      "parameters": "  ",
+      "is_static": false,
+      "is_main": false
+    },
+    "test_macros_arrays:: DEBUG_PRINT(\"De": {
+      "name": " DEBUG_PRINT(\"De",
+      "file": "test_macros_arrays.c",
+      "line": 63,
+      "end_line": 77,
+      "signature": "      DEBUG_PRINT(\"De(bu)",
+      "return_type": "    ",
+      "parameters": "bu",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_class_calls::Resource": {
+      "name": "Resource",
+      "file": "cpp_class_calls.cpp",
+      "line": 5,
+      "end_line": 32,
+      "signature": "class Resource()",
+      "return_type": "class",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_class_calls::: 函数过于复": {
+      "name": ": 函数过于复",
+      "file": "cpp_class_calls.cpp",
+      "line": 14,
+      "end_line": 31,
+      "signature": "Bug  : 函数过于复(杂，)",
+      "return_type": "Bug ",
+      "parameters": "杂，",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_class_calls::\n    vo": {
+      "name": "\n    vo",
+      "file": "cpp_class_calls.cpp",
+      "line": 34,
+      "end_line": 66,
+      "signature": "ublic \n    vo()",
+      "return_type": "ublic",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_class_calls::->process()": {
+      "name": "->process()",
+      "file": "cpp_class_calls.cpp",
+      "line": 43,
+      "end_line": 66,
+      "signature": "  re ->process()(;\n)",
+      "return_type": "  re",
+      "parameters": ";\n",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::Database": {
+      "name": "Database",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 4,
+      "end_line": 17,
+      "signature": "class Database()",
+      "return_type": "class",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::query": {
+      "name": "query",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 10,
+      "end_line": 12,
+      "signature": "void query(const std::string& sql)",
+      "return_type": "void",
+      "parameters": "const std::string& sql",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::disconnect": {
+      "name": "disconnect",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 14,
+      "end_line": 16,
+      "signature": "void disconnect()",
+      "return_type": "void",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::DatabaseManager": {
+      "name": "DatabaseManager",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 19,
+      "end_line": 31,
+      "signature": "class DatabaseManager()",
+      "return_type": "class",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::perform_database_operations": {
+      "name": "perform_database_operations",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 26,
+      "end_line": 30,
+      "signature": "void perform_database_operations()",
+      "return_type": "void",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::valu": {
+      "name": "valu",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 33,
+      "end_line": 37,
+      "signature": " v) : valu()",
+      "return_type": " v) :",
+      "parameters": "",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::    /": {
+      "name": "    /",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 36,
+      "end_line": 36,
+      "signature": "Data* data)     /(/ B)",
+      "return_type": "Data* data)",
+      "parameters": "/ B",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::解引用\n    std:": {
+      "name": "解引用\n    std:",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 39,
+      "end_line": 42,
+      "signature": "查空指针 解引用\n    std:(:cout << \"Pr)",
+      "return_type": "查空指针",
+      "parameters": ":cout << \"Pr",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::;\n    for (in": {
+      "name": ";\n    for (in",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 44,
+      "end_line": 51,
+      "signature": "t su ;\n    for (in(t i = 0; i < size; i)",
+      "return_type": "t su",
+      "parameters": "t i = 0; i < size; i",
+      "is_static": false,
+      "is_main": false
+    },
+    "cpp_pointer_calls::4: 内": {
+      "name": "4: 内",
+      "file": "cpp_pointer_calls.cpp",
+      "line": 53,
+      "end_line": 66,
+      "signature": "Bug 4: 内(存泄)",
+      "return_type": "Bug",
+      "parameters": "存泄",
+      "is_static": false,
+      "is_main": false
+    }
+  },
+  "call_edges": [
+    {
+      "from": "math_utils::factorial",
+      "to": "math_utils::factorial",
+      "from_file": "math_utils.c",
+      "from_line": 17,
+      "call_type": "direct"
+    },
+    {
+      "from": "cpp_class_calls::Resource",
+      "to": "cpp_class_calls::Resource",
+      "from_file": "cpp_class_calls.cpp",
+      "from_line": 9,
+      "call_type": "direct"
+    },
+    {
+      "from": "cpp_pointer_calls::DatabaseManager",
+      "to": "cpp_pointer_calls::DatabaseManager",
+      "from_file": "cpp_pointer_calls.cpp",
+      "from_line": 24,
+      "call_type": "direct"
+    }
+  ],
+  "indexes": {
+    "by_file": {
+      "cross_file_calls.c": [
+        "cross_file_calls:: x) {\n    int square"
+      ],
+      "math_utils.c": [
+        "math_utils::square",
+        "math_utils::sqrt_custom",
+        "math_utils::factorial"
+      ],
+      "same_file_calls.c": [
+        "same_file_calls::) {",
+        "same_file_calls::int b) {",
+        "same_file_calls::int b) {",
+        "same_file_calls::t b) {",
+        "same_file_calls::sult1 = add(x"
+      ],
+      "test_macros_arrays.c": [
+        "test_macros_arrays::VALUE;  // 使用简单宏",
+        "test_macros_arrays::\n    // 使用静态数组\n ",
+        "test_macros_arrays:: DEBUG_PRINT(\"De"
+      ],
+      "cpp_class_calls.cpp": [
+        "cpp_class_calls::Resource",
+        "cpp_class_calls::: 函数过于复",
+        "cpp_class_calls::\n    vo",
+        "cpp_class_calls::->process()"
+      ],
+      "cpp_pointer_calls.cpp": [
+        "cpp_pointer_calls::Database",
+        "cpp_pointer_calls::query",
+        "cpp_pointer_calls::disconnect",
+        "cpp_pointer_calls::DatabaseManager",
+        "cpp_pointer_calls::perform_database_operations",
+        "cpp_pointer_calls::valu",
+        "cpp_pointer_calls::    /",
+        "cpp_pointer_calls::解引用\n    std:",
+        "cpp_pointer_calls::;\n    for (in",
+        "cpp_pointer_calls::4: 内"
+      ]
+    },
+    "callers": {
+      "math_utils::factorial": [
+        "math_utils::factorial"
+      ],
+      "cpp_class_calls::Resource": [
+        "cpp_class_calls::Resource"
+      ],
+      "cpp_pointer_calls::DatabaseManager": [
+        "cpp_pointer_calls::DatabaseManager"
+      ]
+    },
+    "callees": {
+      "math_utils::factorial": [
+        "math_utils::factorial"
+      ],
+      "cpp_class_calls::Resource": [
+        "cpp_class_calls::Resource"
+      ],
+      "cpp_pointer_calls::DatabaseManager": [
+        "cpp_pointer_calls::DatabaseManager"
+      ]
+    }
+  }
+}

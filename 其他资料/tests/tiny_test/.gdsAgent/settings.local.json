@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($p=\"D:\\\\code\\\\Poracode-master\\\\resources\\\\plugins\\\\code-review\"; Test-Path $p; Get-ChildItem -LiteralPath $p -Recurse -Force | ForEach-Object { $_.FullName })"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "code-review-index": {
+      "command": "node",
+      "args": [
+        "D:\\code\\Poracode-master\\resources\\plugins\\code-review\\mcp\\server.mjs"
+      ],
+      "env": {}
+    }
+  }
+}

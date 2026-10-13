@@ -1,0 +1,27 @@
+{
+  "gjb_rules": [
+    "5.9.1.b",
+    "5.9.1.a",
+    "5.2.10",
+    "5.2.5",
+    "5.2.4",
+    "5.1.3",
+    "A-1-2",
+    "A-1-1"
+  ],
+  "cwe_rules": [],
+  "rule_overrides": {
+    "fpga": {},
+    "cwe": {}
+  },
+  "custom_filters": {
+    "S_26_04": [
+      "printf"
+    ],
+    "R-1-1-11": [
+      "printf"
+    ]
+  },
+  "max_issues_per_rule": 3,
+  "version": "1.0"
+}

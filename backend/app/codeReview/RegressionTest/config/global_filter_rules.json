@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "description": "AI代码审查全局过滤规则配置文件，自动应用于所有任务",
+  "auto_apply": true,
+  "rules": [
+    {
+      "id": "rule_001",
+      "name": "数组可能问题",
+      "keywords": ["数组", "可能"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'数组'和'可能'的问题"
+    },
+    {
+      "id": "rule_002",
+      "name": "memcpy/memset可能问题",
+      "keywords": ["memcpy", "memset", "可能"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中包含memcpy或memset且包含'可能'的问题"
+    },
+    {
+      "id": "rule_003",
+      "name": "指针可能问题",
+      "keywords": ["指针", "可能"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'指针'和'可能'的问题"
+    },
+    {
+      "id": "rule_004",
+      "name": "未初始化可能问题",
+      "keywords": ["未初始化", "可能"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'未初始化'和'可能'的问题"
+    },
+    {
+      "id": "rule_005",
+      "name": "潜在未定义问题",
+      "keywords": ["潜在", "未定义"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'潜在'和'未定义'的问题"
+    },
+    {
+      "id": "rule_006",
+      "name": "硬编码或魔法数字",
+      "keywords": ["硬编码", "魔法数字"],
+      "logic": "OR",
+      "enabled": true,
+      "description": "过滤掉问题原因中包含'硬编码'或'魔法数字'的问题"
+    },
+    {
+      "id": "rule_007",
+      "name": "浮点数溢出或精度损失",
+      "keywords": ["浮点数溢出", "精度损失"],
+      "logic": "OR",
+      "enabled": true,
+      "description": "过滤掉问题原因中包含浮点数相关问题"
+    },
+    {
+      "id": "rule_008",
+      "name": "缺少注释",
+      "keywords": ["缺少注释"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中包含'缺少注释'的问题"
+    },
+    {
+      "id": "rule_009",
+      "name": "未定义宏",
+      "keywords": ["未定义", "宏"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'未定义'和'宏'的问题"
+    },
+    {
+      "id": "rule_010",
+      "name": "未定义变量",
+      "keywords": ["未定义", "变量"],
+      "logic": "AND",
+      "enabled": true,
+      "description": "过滤掉问题原因中同时包含'未定义'和'变量'的问题"
+    }
+  ]
+}

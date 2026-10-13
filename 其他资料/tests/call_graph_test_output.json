@@ -1,0 +1,1436 @@
+{
+  "project": {
+    "name": "c_test_project",
+    "root": "E:\\code\\requirement_extractor\\backend\\tests\\c_test_project",
+    "language": "c",
+    "total_functions": 56,
+    "total_files": 7,
+    "total_call_edges": 56
+  },
+  "functions": {
+    "data_analyzer::init_data_analyzer": {
+      "name": "init_data_analyzer",
+      "file": "src\\data_analyzer.c",
+      "line": 22,
+      "end_line": 22,
+      "signature": "SystemStatus init_data_analyzer(uint32_t warning_threshold, uint32_t critical_threshold)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t warning_threshold, uint32_t critical_threshold",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::analyze_cpu_usage": {
+      "name": "analyze_cpu_usage",
+      "file": "src\\data_analyzer.c",
+      "line": 39,
+      "end_line": 39,
+      "signature": "SystemStatus analyze_cpu_usage(uint32_t cpu_usage)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t cpu_usage",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::analyze_memory_usage": {
+      "name": "analyze_memory_usage",
+      "file": "src\\data_analyzer.c",
+      "line": 47,
+      "end_line": 47,
+      "signature": "SystemStatus analyze_memory_usage(uint32_t memory_usage)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t memory_usage",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::analyze_temperature": {
+      "name": "analyze_temperature",
+      "file": "src\\data_analyzer.c",
+      "line": 55,
+      "end_line": 55,
+      "signature": "SystemStatus analyze_temperature(uint32_t temperature)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t temperature",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::analyze_battery_level": {
+      "name": "analyze_battery_level",
+      "file": "src\\data_analyzer.c",
+      "line": 71,
+      "end_line": 71,
+      "signature": "SystemStatus analyze_battery_level(uint32_t battery_level)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t battery_level",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::analyze_all_data": {
+      "name": "analyze_all_data",
+      "file": "src\\data_analyzer.c",
+      "line": 86,
+      "end_line": 86,
+      "signature": "SystemStatus analyze_all_data(const SystemData* data, SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemData* data, SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::shutdown_data_analyzer": {
+      "name": "shutdown_data_analyzer",
+      "file": "src\\data_analyzer.c",
+      "line": 113,
+      "end_line": 113,
+      "signature": "SystemStatus shutdown_data_analyzer(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_analyzer::get_status_by_value": {
+      "name": "get_status_by_value",
+      "file": "src\\data_analyzer.c",
+      "line": 124,
+      "end_line": 124,
+      "signature": "static SystemStatus get_status_by_value(uint32_t value)",
+      "return_type": "static SystemStatus",
+      "parameters": "uint32_t value",
+      "is_static": true,
+      "is_main": false
+    },
+    "data_analyzer::generate_event_message": {
+      "name": "generate_event_message",
+      "file": "src\\data_analyzer.c",
+      "line": 134,
+      "end_line": 134,
+      "signature": "static void generate_event_message(SystemEvent* event, const SystemData* data)",
+      "return_type": "static void",
+      "parameters": "SystemEvent* event, const SystemData* data",
+      "is_static": true,
+      "is_main": false
+    },
+    "data_collector::init_data_collector": {
+      "name": "init_data_collector",
+      "file": "src\\data_collector.c",
+      "line": 21,
+      "end_line": 21,
+      "signature": "SystemStatus init_data_collector(uint32_t sampling_rate_ms)",
+      "return_type": "SystemStatus",
+      "parameters": "uint32_t sampling_rate_ms",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::collect_cpu_usage": {
+      "name": "collect_cpu_usage",
+      "file": "src\\data_collector.c",
+      "line": 39,
+      "end_line": 39,
+      "signature": "uint32_t collect_cpu_usage(void)",
+      "return_type": "uint32_t",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::collect_memory_usage": {
+      "name": "collect_memory_usage",
+      "file": "src\\data_collector.c",
+      "line": 51,
+      "end_line": 51,
+      "signature": "uint32_t collect_memory_usage(void)",
+      "return_type": "uint32_t",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::collect_temperature": {
+      "name": "collect_temperature",
+      "file": "src\\data_collector.c",
+      "line": 63,
+      "end_line": 63,
+      "signature": "uint32_t collect_temperature(void)",
+      "return_type": "uint32_t",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::collect_battery_level": {
+      "name": "collect_battery_level",
+      "file": "src\\data_collector.c",
+      "line": 75,
+      "end_line": 75,
+      "signature": "uint32_t collect_battery_level(void)",
+      "return_type": "uint32_t",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::collect_all_data": {
+      "name": "collect_all_data",
+      "file": "src\\data_collector.c",
+      "line": 87,
+      "end_line": 87,
+      "signature": "SystemStatus collect_all_data(SystemData* data)",
+      "return_type": "SystemStatus",
+      "parameters": "SystemData* data",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::shutdown_data_collector": {
+      "name": "shutdown_data_collector",
+      "file": "src\\data_collector.c",
+      "line": 102,
+      "end_line": 102,
+      "signature": "SystemStatus shutdown_data_collector(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "data_collector::simulate_hardware_delay": {
+      "name": "simulate_hardware_delay",
+      "file": "src\\data_collector.c",
+      "line": 113,
+      "end_line": 113,
+      "signature": "static void simulate_hardware_delay(void)",
+      "return_type": "static void",
+      "parameters": "void",
+      "is_static": true,
+      "is_main": false
+    },
+    "event_handler::init_event_handler": {
+      "name": "init_event_handler",
+      "file": "src\\event_handler.c",
+      "line": 21,
+      "end_line": 21,
+      "signature": "SystemStatus init_event_handler(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::register_event_callback": {
+      "name": "register_event_callback",
+      "file": "src\\event_handler.c",
+      "line": 36,
+      "end_line": 36,
+      "signature": "SystemStatus register_event_callback(SystemStatus status, EventCallback callback)",
+      "return_type": "SystemStatus",
+      "parameters": "SystemStatus status, EventCallback callback",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::handle_event": {
+      "name": "handle_event",
+      "file": "src\\event_handler.c",
+      "line": 49,
+      "end_line": 49,
+      "signature": "SystemStatus handle_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::handle_ok_event": {
+      "name": "handle_ok_event",
+      "file": "src\\event_handler.c",
+      "line": 70,
+      "end_line": 70,
+      "signature": "SystemStatus handle_ok_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::handle_warning_event": {
+      "name": "handle_warning_event",
+      "file": "src\\event_handler.c",
+      "line": 80,
+      "end_line": 80,
+      "signature": "SystemStatus handle_warning_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::handle_error_event": {
+      "name": "handle_error_event",
+      "file": "src\\event_handler.c",
+      "line": 94,
+      "end_line": 94,
+      "signature": "SystemStatus handle_error_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::handle_critical_event": {
+      "name": "handle_critical_event",
+      "file": "src\\event_handler.c",
+      "line": 108,
+      "end_line": 108,
+      "signature": "SystemStatus handle_critical_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::shutdown_event_handler": {
+      "name": "shutdown_event_handler",
+      "file": "src\\event_handler.c",
+      "line": 124,
+      "end_line": 124,
+      "signature": "SystemStatus shutdown_event_handler(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "event_handler::print_event": {
+      "name": "print_event",
+      "file": "src\\event_handler.c",
+      "line": 140,
+      "end_line": 140,
+      "signature": "static void print_event(const SystemEvent* event)",
+      "return_type": "static void",
+      "parameters": "const SystemEvent* event",
+      "is_static": true,
+      "is_main": false
+    },
+    "logger::init_logger": {
+      "name": "init_logger",
+      "file": "src\\logger.c",
+      "line": 32,
+      "end_line": 32,
+      "signature": "SystemStatus init_logger(const char* log_file_path, bool enabled)",
+      "return_type": "SystemStatus",
+      "parameters": "const char* log_file_path, bool enabled",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_event": {
+      "name": "log_event",
+      "file": "src\\logger.c",
+      "line": 69,
+      "end_line": 69,
+      "signature": "SystemStatus log_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_data": {
+      "name": "log_data",
+      "file": "src\\logger.c",
+      "line": 93,
+      "end_line": 93,
+      "signature": "SystemStatus log_data(const SystemData* data)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemData* data",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_debug": {
+      "name": "log_debug",
+      "file": "src\\logger.c",
+      "line": 115,
+      "end_line": 115,
+      "signature": "SystemStatus log_debug(const char* format, ...)",
+      "return_type": "SystemStatus",
+      "parameters": "const char* format, ...",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_info": {
+      "name": "log_info",
+      "file": "src\\logger.c",
+      "line": 128,
+      "end_line": 128,
+      "signature": "SystemStatus log_info(const char* format, ...)",
+      "return_type": "SystemStatus",
+      "parameters": "const char* format, ...",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_warning": {
+      "name": "log_warning",
+      "file": "src\\logger.c",
+      "line": 141,
+      "end_line": 141,
+      "signature": "SystemStatus log_warning(const char* format, ...)",
+      "return_type": "SystemStatus",
+      "parameters": "const char* format, ...",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::log_error": {
+      "name": "log_error",
+      "file": "src\\logger.c",
+      "line": 154,
+      "end_line": 154,
+      "signature": "SystemStatus log_error(const char* format, ...)",
+      "return_type": "SystemStatus",
+      "parameters": "const char* format, ...",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::shutdown_logger": {
+      "name": "shutdown_logger",
+      "file": "src\\logger.c",
+      "line": 167,
+      "end_line": 167,
+      "signature": "SystemStatus shutdown_logger(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "logger::write_log": {
+      "name": "write_log",
+      "file": "src\\logger.c",
+      "line": 194,
+      "end_line": 194,
+      "signature": "static SystemStatus write_log(LogLevel level, const char* format, va_list args)",
+      "return_type": "static SystemStatus",
+      "parameters": "LogLevel level, const char* format, va_list args",
+      "is_static": true,
+      "is_main": false
+    },
+    "logger::get_log_level_string": {
+      "name": "get_log_level_string",
+      "file": "src\\logger.c",
+      "line": 221,
+      "end_line": 221,
+      "signature": "static const char* get_log_level_string(LogLevel level)",
+      "return_type": "static const char*",
+      "parameters": "LogLevel level",
+      "is_static": true,
+      "is_main": false
+    },
+    "main::main": {
+      "name": "main",
+      "file": "src\\main.c",
+      "line": 33,
+      "end_line": 33,
+      "signature": "int main(int argc, char* argv[])",
+      "return_type": "int",
+      "parameters": "int argc, char* argv[]",
+      "is_static": false,
+      "is_main": true
+    },
+    "main::signal_handler": {
+      "name": "signal_handler",
+      "file": "src\\main.c",
+      "line": 86,
+      "end_line": 86,
+      "signature": "static void signal_handler(int sig)",
+      "return_type": "static void",
+      "parameters": "int sig",
+      "is_static": true,
+      "is_main": false
+    },
+    "main::setup_signal_handlers": {
+      "name": "setup_signal_handlers",
+      "file": "src\\main.c",
+      "line": 93,
+      "end_line": 93,
+      "signature": "static void setup_signal_handlers(void)",
+      "return_type": "static void",
+      "parameters": "void",
+      "is_static": true,
+      "is_main": false
+    },
+    "main::monitor_loop": {
+      "name": "monitor_loop",
+      "file": "src\\main.c",
+      "line": 98,
+      "end_line": 98,
+      "signature": "static void monitor_loop(void)",
+      "return_type": "static void",
+      "parameters": "void",
+      "is_static": true,
+      "is_main": false
+    },
+    "main::print_usage": {
+      "name": "print_usage",
+      "file": "src\\main.c",
+      "line": 123,
+      "end_line": 123,
+      "signature": "static void print_usage(const char* program_name)",
+      "return_type": "static void",
+      "parameters": "const char* program_name",
+      "is_static": true,
+      "is_main": false
+    },
+    "main::print_banner": {
+      "name": "print_banner",
+      "file": "src\\main.c",
+      "line": 130,
+      "end_line": 130,
+      "signature": "static void print_banner(void)",
+      "return_type": "static void",
+      "parameters": "void",
+      "is_static": true,
+      "is_main": false
+    },
+    "system_monitor::initialize_system": {
+      "name": "initialize_system",
+      "file": "src\\system_monitor.c",
+      "line": 22,
+      "end_line": 22,
+      "signature": "SystemStatus initialize_system(const SystemConfig* config)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemConfig* config",
+      "is_static": false,
+      "is_main": false
+    },
+    "system_monitor::collect_system_data": {
+      "name": "collect_system_data",
+      "file": "src\\system_monitor.c",
+      "line": 71,
+      "end_line": 71,
+      "signature": "SystemStatus collect_system_data(SystemData* data)",
+      "return_type": "SystemStatus",
+      "parameters": "SystemData* data",
+      "is_static": false,
+      "is_main": false
+    },
+    "system_monitor::analyze_system_data": {
+      "name": "analyze_system_data",
+      "file": "src\\system_monitor.c",
+      "line": 79,
+      "end_line": 79,
+      "signature": "SystemStatus analyze_system_data(const SystemData* data, SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemData* data, SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "system_monitor::log_system_event": {
+      "name": "log_system_event",
+      "file": "src\\system_monitor.c",
+      "line": 87,
+      "end_line": 87,
+      "signature": "SystemStatus log_system_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "system_monitor::handle_system_event": {
+      "name": "handle_system_event",
+      "file": "src\\system_monitor.c",
+      "line": 95,
+      "end_line": 95,
+      "signature": "SystemStatus handle_system_event(const SystemEvent* event)",
+      "return_type": "SystemStatus",
+      "parameters": "const SystemEvent* event",
+      "is_static": false,
+      "is_main": false
+    },
+    "system_monitor::shutdown_system": {
+      "name": "shutdown_system",
+      "file": "src\\system_monitor.c",
+      "line": 103,
+      "end_line": 103,
+      "signature": "SystemStatus shutdown_system(void)",
+      "return_type": "SystemStatus",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::get_current_timestamp": {
+      "name": "get_current_timestamp",
+      "file": "src\\utils.c",
+      "line": 14,
+      "end_line": 14,
+      "signature": "time_t get_current_timestamp(void)",
+      "return_type": "time_t",
+      "parameters": "void",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::timestamp_to_string": {
+      "name": "timestamp_to_string",
+      "file": "src\\utils.c",
+      "line": 18,
+      "end_line": 18,
+      "signature": "char* timestamp_to_string(time_t timestamp, char* buffer, size_t buffer_size)",
+      "return_type": "char*",
+      "parameters": "time_t timestamp, char* buffer, size_t buffer_size",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::generate_random": {
+      "name": "generate_random",
+      "file": "src\\utils.c",
+      "line": 44,
+      "end_line": 44,
+      "signature": "int generate_random(int min, int max)",
+      "return_type": "int",
+      "parameters": "int min, int max",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::safe_strcpy": {
+      "name": "safe_strcpy",
+      "file": "src\\utils.c",
+      "line": 54,
+      "end_line": 54,
+      "signature": "char* safe_strcpy(char* dest, const char* src, size_t dest_size)",
+      "return_type": "char*",
+      "parameters": "char* dest, const char* src, size_t dest_size",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::safe_strcat": {
+      "name": "safe_strcat",
+      "file": "src\\utils.c",
+      "line": 68,
+      "end_line": 68,
+      "signature": "char* safe_strcat(char* dest, const char* src, size_t dest_size)",
+      "return_type": "char*",
+      "parameters": "char* dest, const char* src, size_t dest_size",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::status_to_string": {
+      "name": "status_to_string",
+      "file": "src\\utils.c",
+      "line": 88,
+      "end_line": 88,
+      "signature": "const char* status_to_string(SystemStatus status)",
+      "return_type": "const char*",
+      "parameters": "SystemStatus status",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::check_null_ptr": {
+      "name": "check_null_ptr",
+      "file": "src\\utils.c",
+      "line": 103,
+      "end_line": 103,
+      "signature": "bool check_null_ptr(const void* ptr, const char* ptr_name, const char* file, int line)",
+      "return_type": "bool",
+      "parameters": "const void* ptr, const char* ptr_name, const char* file, int line",
+      "is_static": false,
+      "is_main": false
+    },
+    "utils::check_memory_alloc": {
+      "name": "check_memory_alloc",
+      "file": "src\\utils.c",
+      "line": 111,
+      "end_line": 111,
+      "signature": "void* check_memory_alloc(void* ptr, size_t size, const char* file, int line)",
+      "return_type": "void*",
+      "parameters": "void* ptr, size_t size, const char* file, int line",
+      "is_static": false,
+      "is_main": false
+    }
+  },
+  "call_edges": [
+    {
+      "from": "data_analyzer::init_data_analyzer",
+      "to": "data_analyzer::init_data_analyzer",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 22,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::analyze_cpu_usage",
+      "to": "data_analyzer::analyze_cpu_usage",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 39,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::analyze_memory_usage",
+      "to": "data_analyzer::analyze_memory_usage",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 47,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::analyze_temperature",
+      "to": "data_analyzer::analyze_temperature",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 55,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::analyze_battery_level",
+      "to": "data_analyzer::analyze_battery_level",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 71,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::analyze_all_data",
+      "to": "data_analyzer::analyze_all_data",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 86,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::shutdown_data_analyzer",
+      "to": "data_analyzer::shutdown_data_analyzer",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 113,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::get_status_by_value",
+      "to": "data_analyzer::get_status_by_value",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 124,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_analyzer::generate_event_message",
+      "to": "data_analyzer::generate_event_message",
+      "from_file": "src\\data_analyzer.c",
+      "from_line": 134,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::init_data_collector",
+      "to": "data_collector::init_data_collector",
+      "from_file": "src\\data_collector.c",
+      "from_line": 21,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::collect_cpu_usage",
+      "to": "data_collector::collect_cpu_usage",
+      "from_file": "src\\data_collector.c",
+      "from_line": 39,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::collect_memory_usage",
+      "to": "data_collector::collect_memory_usage",
+      "from_file": "src\\data_collector.c",
+      "from_line": 51,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::collect_temperature",
+      "to": "data_collector::collect_temperature",
+      "from_file": "src\\data_collector.c",
+      "from_line": 63,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::collect_battery_level",
+      "to": "data_collector::collect_battery_level",
+      "from_file": "src\\data_collector.c",
+      "from_line": 75,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::collect_all_data",
+      "to": "data_collector::collect_all_data",
+      "from_file": "src\\data_collector.c",
+      "from_line": 87,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::shutdown_data_collector",
+      "to": "data_collector::shutdown_data_collector",
+      "from_file": "src\\data_collector.c",
+      "from_line": 102,
+      "call_type": "direct"
+    },
+    {
+      "from": "data_collector::simulate_hardware_delay",
+      "to": "data_collector::simulate_hardware_delay",
+      "from_file": "src\\data_collector.c",
+      "from_line": 113,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::init_event_handler",
+      "to": "event_handler::init_event_handler",
+      "from_file": "src\\event_handler.c",
+      "from_line": 21,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::register_event_callback",
+      "to": "event_handler::register_event_callback",
+      "from_file": "src\\event_handler.c",
+      "from_line": 36,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::handle_event",
+      "to": "event_handler::handle_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 49,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::handle_ok_event",
+      "to": "event_handler::handle_ok_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 70,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::handle_warning_event",
+      "to": "event_handler::handle_warning_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 80,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::handle_error_event",
+      "to": "event_handler::handle_error_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 94,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::handle_critical_event",
+      "to": "event_handler::handle_critical_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 108,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::shutdown_event_handler",
+      "to": "event_handler::shutdown_event_handler",
+      "from_file": "src\\event_handler.c",
+      "from_line": 124,
+      "call_type": "direct"
+    },
+    {
+      "from": "event_handler::print_event",
+      "to": "event_handler::print_event",
+      "from_file": "src\\event_handler.c",
+      "from_line": 140,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::init_logger",
+      "to": "logger::init_logger",
+      "from_file": "src\\logger.c",
+      "from_line": 32,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_event",
+      "to": "logger::log_event",
+      "from_file": "src\\logger.c",
+      "from_line": 69,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_data",
+      "to": "logger::log_data",
+      "from_file": "src\\logger.c",
+      "from_line": 93,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_debug",
+      "to": "logger::log_debug",
+      "from_file": "src\\logger.c",
+      "from_line": 115,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_info",
+      "to": "logger::log_info",
+      "from_file": "src\\logger.c",
+      "from_line": 128,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_warning",
+      "to": "logger::log_warning",
+      "from_file": "src\\logger.c",
+      "from_line": 141,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::log_error",
+      "to": "logger::log_error",
+      "from_file": "src\\logger.c",
+      "from_line": 154,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::shutdown_logger",
+      "to": "logger::shutdown_logger",
+      "from_file": "src\\logger.c",
+      "from_line": 167,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::write_log",
+      "to": "logger::write_log",
+      "from_file": "src\\logger.c",
+      "from_line": 194,
+      "call_type": "direct"
+    },
+    {
+      "from": "logger::get_log_level_string",
+      "to": "logger::get_log_level_string",
+      "from_file": "src\\logger.c",
+      "from_line": 221,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::main",
+      "to": "main::main",
+      "from_file": "src\\main.c",
+      "from_line": 33,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::signal_handler",
+      "to": "main::signal_handler",
+      "from_file": "src\\main.c",
+      "from_line": 86,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::setup_signal_handlers",
+      "to": "main::setup_signal_handlers",
+      "from_file": "src\\main.c",
+      "from_line": 93,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::monitor_loop",
+      "to": "main::monitor_loop",
+      "from_file": "src\\main.c",
+      "from_line": 98,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::print_usage",
+      "to": "main::print_usage",
+      "from_file": "src\\main.c",
+      "from_line": 123,
+      "call_type": "direct"
+    },
+    {
+      "from": "main::print_banner",
+      "to": "main::print_banner",
+      "from_file": "src\\main.c",
+      "from_line": 130,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::initialize_system",
+      "to": "system_monitor::initialize_system",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 22,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::collect_system_data",
+      "to": "system_monitor::collect_system_data",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 71,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::analyze_system_data",
+      "to": "system_monitor::analyze_system_data",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 79,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::log_system_event",
+      "to": "system_monitor::log_system_event",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 87,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::handle_system_event",
+      "to": "system_monitor::handle_system_event",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 95,
+      "call_type": "direct"
+    },
+    {
+      "from": "system_monitor::shutdown_system",
+      "to": "system_monitor::shutdown_system",
+      "from_file": "src\\system_monitor.c",
+      "from_line": 103,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::get_current_timestamp",
+      "to": "utils::get_current_timestamp",
+      "from_file": "src\\utils.c",
+      "from_line": 14,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::timestamp_to_string",
+      "to": "utils::timestamp_to_string",
+      "from_file": "src\\utils.c",
+      "from_line": 18,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::generate_random",
+      "to": "utils::generate_random",
+      "from_file": "src\\utils.c",
+      "from_line": 44,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::safe_strcpy",
+      "to": "utils::safe_strcpy",
+      "from_file": "src\\utils.c",
+      "from_line": 54,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::safe_strcat",
+      "to": "utils::safe_strcat",
+      "from_file": "src\\utils.c",
+      "from_line": 68,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::status_to_string",
+      "to": "utils::status_to_string",
+      "from_file": "src\\utils.c",
+      "from_line": 88,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::check_null_ptr",
+      "to": "utils::check_null_ptr",
+      "from_file": "src\\utils.c",
+      "from_line": 103,
+      "call_type": "direct"
+    },
+    {
+      "from": "utils::check_memory_alloc",
+      "to": "utils::check_memory_alloc",
+      "from_file": "src\\utils.c",
+      "from_line": 111,
+      "call_type": "direct"
+    }
+  ],
+  "indexes": {
+    "by_file": {
+      "src\\data_analyzer.c": [
+        "data_analyzer::init_data_analyzer",
+        "data_analyzer::analyze_cpu_usage",
+        "data_analyzer::analyze_memory_usage",
+        "data_analyzer::analyze_temperature",
+        "data_analyzer::analyze_battery_level",
+        "data_analyzer::analyze_all_data",
+        "data_analyzer::shutdown_data_analyzer",
+        "data_analyzer::get_status_by_value",
+        "data_analyzer::generate_event_message"
+      ],
+      "src\\data_collector.c": [
+        "data_collector::init_data_collector",
+        "data_collector::collect_cpu_usage",
+        "data_collector::collect_memory_usage",
+        "data_collector::collect_temperature",
+        "data_collector::collect_battery_level",
+        "data_collector::collect_all_data",
+        "data_collector::shutdown_data_collector",
+        "data_collector::simulate_hardware_delay"
+      ],
+      "src\\event_handler.c": [
+        "event_handler::init_event_handler",
+        "event_handler::register_event_callback",
+        "event_handler::handle_event",
+        "event_handler::handle_ok_event",
+        "event_handler::handle_warning_event",
+        "event_handler::handle_error_event",
+        "event_handler::handle_critical_event",
+        "event_handler::shutdown_event_handler",
+        "event_handler::print_event"
+      ],
+      "src\\logger.c": [
+        "logger::init_logger",
+        "logger::log_event",
+        "logger::log_data",
+        "logger::log_debug",
+        "logger::log_info",
+        "logger::log_warning",
+        "logger::log_error",
+        "logger::shutdown_logger",
+        "logger::write_log",
+        "logger::get_log_level_string"
+      ],
+      "src\\main.c": [
+        "main::main",
+        "main::signal_handler",
+        "main::setup_signal_handlers",
+        "main::monitor_loop",
+        "main::print_usage",
+        "main::print_banner"
+      ],
+      "src\\system_monitor.c": [
+        "system_monitor::initialize_system",
+        "system_monitor::collect_system_data",
+        "system_monitor::analyze_system_data",
+        "system_monitor::log_system_event",
+        "system_monitor::handle_system_event",
+        "system_monitor::shutdown_system"
+      ],
+      "src\\utils.c": [
+        "utils::get_current_timestamp",
+        "utils::timestamp_to_string",
+        "utils::generate_random",
+        "utils::safe_strcpy",
+        "utils::safe_strcat",
+        "utils::status_to_string",
+        "utils::check_null_ptr",
+        "utils::check_memory_alloc"
+      ]
+    },
+    "callers": {
+      "data_analyzer::init_data_analyzer": [
+        "data_analyzer::init_data_analyzer"
+      ],
+      "data_analyzer::analyze_cpu_usage": [
+        "data_analyzer::analyze_cpu_usage"
+      ],
+      "data_analyzer::analyze_memory_usage": [
+        "data_analyzer::analyze_memory_usage"
+      ],
+      "data_analyzer::analyze_temperature": [
+        "data_analyzer::analyze_temperature"
+      ],
+      "data_analyzer::analyze_battery_level": [
+        "data_analyzer::analyze_battery_level"
+      ],
+      "data_analyzer::analyze_all_data": [
+        "data_analyzer::analyze_all_data"
+      ],
+      "data_analyzer::shutdown_data_analyzer": [
+        "data_analyzer::shutdown_data_analyzer"
+      ],
+      "data_analyzer::get_status_by_value": [
+        "data_analyzer::get_status_by_value"
+      ],
+      "data_analyzer::generate_event_message": [
+        "data_analyzer::generate_event_message"
+      ],
+      "data_collector::init_data_collector": [
+        "data_collector::init_data_collector"
+      ],
+      "data_collector::collect_cpu_usage": [
+        "data_collector::collect_cpu_usage"
+      ],
+      "data_collector::collect_memory_usage": [
+        "data_collector::collect_memory_usage"
+      ],
+      "data_collector::collect_temperature": [
+        "data_collector::collect_temperature"
+      ],
+      "data_collector::collect_battery_level": [
+        "data_collector::collect_battery_level"
+      ],
+      "data_collector::collect_all_data": [
+        "data_collector::collect_all_data"
+      ],
+      "data_collector::shutdown_data_collector": [
+        "data_collector::shutdown_data_collector"
+      ],
+      "data_collector::simulate_hardware_delay": [
+        "data_collector::simulate_hardware_delay"
+      ],
+      "event_handler::init_event_handler": [
+        "event_handler::init_event_handler"
+      ],
+      "event_handler::register_event_callback": [
+        "event_handler::register_event_callback"
+      ],
+      "event_handler::handle_event": [
+        "event_handler::handle_event"
+      ],
+      "event_handler::handle_ok_event": [
+        "event_handler::handle_ok_event"
+      ],
+      "event_handler::handle_warning_event": [
+        "event_handler::handle_warning_event"
+      ],
+      "event_handler::handle_error_event": [
+        "event_handler::handle_error_event"
+      ],
+      "event_handler::handle_critical_event": [
+        "event_handler::handle_critical_event"
+      ],
+      "event_handler::shutdown_event_handler": [
+        "event_handler::shutdown_event_handler"
+      ],
+      "event_handler::print_event": [
+        "event_handler::print_event"
+      ],
+      "logger::init_logger": [
+        "logger::init_logger"
+      ],
+      "logger::log_event": [
+        "logger::log_event"
+      ],
+      "logger::log_data": [
+        "logger::log_data"
+      ],
+      "logger::log_debug": [
+        "logger::log_debug"
+      ],
+      "logger::log_info": [
+        "logger::log_info"
+      ],
+      "logger::log_warning": [
+        "logger::log_warning"
+      ],
+      "logger::log_error": [
+        "logger::log_error"
+      ],
+      "logger::shutdown_logger": [
+        "logger::shutdown_logger"
+      ],
+      "logger::write_log": [
+        "logger::write_log"
+      ],
+      "logger::get_log_level_string": [
+        "logger::get_log_level_string"
+      ],
+      "main::main": [
+        "main::main"
+      ],
+      "main::signal_handler": [
+        "main::signal_handler"
+      ],
+      "main::setup_signal_handlers": [
+        "main::setup_signal_handlers"
+      ],
+      "main::monitor_loop": [
+        "main::monitor_loop"
+      ],
+      "main::print_usage": [
+        "main::print_usage"
+      ],
+      "main::print_banner": [
+        "main::print_banner"
+      ],
+      "system_monitor::initialize_system": [
+        "system_monitor::initialize_system"
+      ],
+      "system_monitor::collect_system_data": [
+        "system_monitor::collect_system_data"
+      ],
+      "system_monitor::analyze_system_data": [
+        "system_monitor::analyze_system_data"
+      ],
+      "system_monitor::log_system_event": [
+        "system_monitor::log_system_event"
+      ],
+      "system_monitor::handle_system_event": [
+        "system_monitor::handle_system_event"
+      ],
+      "system_monitor::shutdown_system": [
+        "system_monitor::shutdown_system"
+      ],
+      "utils::get_current_timestamp": [
+        "utils::get_current_timestamp"
+      ],
+      "utils::timestamp_to_string": [
+        "utils::timestamp_to_string"
+      ],
+      "utils::generate_random": [
+        "utils::generate_random"
+      ],
+      "utils::safe_strcpy": [
+        "utils::safe_strcpy"
+      ],
+      "utils::safe_strcat": [
+        "utils::safe_strcat"
+      ],
+      "utils::status_to_string": [
+        "utils::status_to_string"
+      ],
+      "utils::check_null_ptr": [
+        "utils::check_null_ptr"
+      ],
+      "utils::check_memory_alloc": [
+        "utils::check_memory_alloc"
+      ]
+    },
+    "callees": {
+      "data_analyzer::init_data_analyzer": [
+        "data_analyzer::init_data_analyzer"
+      ],
+      "data_analyzer::analyze_cpu_usage": [
+        "data_analyzer::analyze_cpu_usage"
+      ],
+      "data_analyzer::analyze_memory_usage": [
+        "data_analyzer::analyze_memory_usage"
+      ],
+      "data_analyzer::analyze_temperature": [
+        "data_analyzer::analyze_temperature"
+      ],
+      "data_analyzer::analyze_battery_level": [
+        "data_analyzer::analyze_battery_level"
+      ],
+      "data_analyzer::analyze_all_data": [
+        "data_analyzer::analyze_all_data"
+      ],
+      "data_analyzer::shutdown_data_analyzer": [
+        "data_analyzer::shutdown_data_analyzer"
+      ],
+      "data_analyzer::get_status_by_value": [
+        "data_analyzer::get_status_by_value"
+      ],
+      "data_analyzer::generate_event_message": [
+        "data_analyzer::generate_event_message"
+      ],
+      "data_collector::init_data_collector": [
+        "data_collector::init_data_collector"
+      ],
+      "data_collector::collect_cpu_usage": [
+        "data_collector::collect_cpu_usage"
+      ],
+      "data_collector::collect_memory_usage": [
+        "data_collector::collect_memory_usage"
+      ],
+      "data_collector::collect_temperature": [
+        "data_collector::collect_temperature"
+      ],
+      "data_collector::collect_battery_level": [
+        "data_collector::collect_battery_level"
+      ],
+      "data_collector::collect_all_data": [
+        "data_collector::collect_all_data"
+      ],
+      "data_collector::shutdown_data_collector": [
+        "data_collector::shutdown_data_collector"
+      ],
+      "data_collector::simulate_hardware_delay": [
+        "data_collector::simulate_hardware_delay"
+      ],
+      "event_handler::init_event_handler": [
+        "event_handler::init_event_handler"
+      ],
+      "event_handler::register_event_callback": [
+        "event_handler::register_event_callback"
+      ],
+      "event_handler::handle_event": [
+        "event_handler::handle_event"
+      ],
+      "event_handler::handle_ok_event": [
+        "event_handler::handle_ok_event"
+      ],
+      "event_handler::handle_warning_event": [
+        "event_handler::handle_warning_event"
+      ],
+      "event_handler::handle_error_event": [
+        "event_handler::handle_error_event"
+      ],
+      "event_handler::handle_critical_event": [
+        "event_handler::handle_critical_event"
+      ],
+      "event_handler::shutdown_event_handler": [
+        "event_handler::shutdown_event_handler"
+      ],
+      "event_handler::print_event": [
+        "event_handler::print_event"
+      ],
+      "logger::init_logger": [
+        "logger::init_logger"
+      ],
+      "logger::log_event": [
+        "logger::log_event"
+      ],
+      "logger::log_data": [
+        "logger::log_data"
+      ],
+      "logger::log_debug": [
+        "logger::log_debug"
+      ],
+      "logger::log_info": [
+        "logger::log_info"
+      ],
+      "logger::log_warning": [
+        "logger::log_warning"
+      ],
+      "logger::log_error": [
+        "logger::log_error"
+      ],
+      "logger::shutdown_logger": [
+        "logger::shutdown_logger"
+      ],
+      "logger::write_log": [
+        "logger::write_log"
+      ],
+      "logger::get_log_level_string": [
+        "logger::get_log_level_string"
+      ],
+      "main::main": [
+        "main::main"
+      ],
+      "main::signal_handler": [
+        "main::signal_handler"
+      ],
+      "main::setup_signal_handlers": [
+        "main::setup_signal_handlers"
+      ],
+      "main::monitor_loop": [
+        "main::monitor_loop"
+      ],
+      "main::print_usage": [
+        "main::print_usage"
+      ],
+      "main::print_banner": [
+        "main::print_banner"
+      ],
+      "system_monitor::initialize_system": [
+        "system_monitor::initialize_system"
+      ],
+      "system_monitor::collect_system_data": [
+        "system_monitor::collect_system_data"
+      ],
+      "system_monitor::analyze_system_data": [
+        "system_monitor::analyze_system_data"
+      ],
+      "system_monitor::log_system_event": [
+        "system_monitor::log_system_event"
+      ],
+      "system_monitor::handle_system_event": [
+        "system_monitor::handle_system_event"
+      ],
+      "system_monitor::shutdown_system": [
+        "system_monitor::shutdown_system"
+      ],
+      "utils::get_current_timestamp": [
+        "utils::get_current_timestamp"
+      ],
+      "utils::timestamp_to_string": [
+        "utils::timestamp_to_string"
+      ],
+      "utils::generate_random": [
+        "utils::generate_random"
+      ],
+      "utils::safe_strcpy": [
+        "utils::safe_strcpy"
+      ],
+      "utils::safe_strcat": [
+        "utils::safe_strcat"
+      ],
+      "utils::status_to_string": [
+        "utils::status_to_string"
+      ],
+      "utils::check_null_ptr": [
+        "utils::check_null_ptr"
+      ],
+      "utils::check_memory_alloc": [
+        "utils::check_memory_alloc"
+      ]
+    }
+  }
+}

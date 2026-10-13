@@ -1,0 +1,9 @@
+#ifndef DIAG_H
+#define DIAG_H
+
+#include "common.h"
+
+u32 diag_u32_saturating_add(u32 a, u32 b);
+u32 diag_hash_tag(const char* tag);
+
+#endif

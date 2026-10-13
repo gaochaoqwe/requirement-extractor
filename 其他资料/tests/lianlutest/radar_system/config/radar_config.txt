@@ -1,0 +1,17 @@
+# 雷达系统配置文件
+# 
+# 配置说明：
+# - scan_frequency: 扫描频率 (Hz)
+# - max_range: 最大探测距离 (米)
+# - min_range: 最小探测距离 (米)
+# - max_targets: 最大跟踪目标数
+# - threshold: 检测阈值 (0.0-1.0)
+# - log_file: 日志文件路径
+
+scan_frequency=10.0
+max_range=100000.0
+min_range=1000.0
+max_targets=50
+threshold=0.3
+log_file=radar.log
+

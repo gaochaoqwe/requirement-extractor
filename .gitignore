@@ -1,0 +1,71 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# === 环境变量和敏感配置 ===
+.env
+.env.*
+!.env.example
+*.local
+
+# === 日志和运行时文件 ===
+logs/
+*.log
+outputs/
+temp/
+uploads/
+
+# === Node.js / 前端 ===
+node_modules/
+frontend_vue/dist/
+frontend_vue/.env.*
+frontend_vue/caddy*.exe
+frontend_vue/caddy.7z
+frontend_vue/dist.7z
+
+# === 后端构建产物 ===
+backend/ts_build/
+backend/vendor/
+backend/logs/
+backend/uploads/
+backend/outputs/
+backend/temp/
+backend/*.txt
+
+# === 测试数据和大文件（只保留源码） ===
+# 代码审查 - 排除测试日志和大数据
+backend/app/codeReview/ConfigurationItem/
+backend/app/codeReview/RegressionTest/*.log
+backend/app/codeReview/RegressionTest/*.jsonl
+backend/app/codeReview/RegressionTest/*.zip
+
+# 动态测试 - 排除测试数据
+backend/app/danamicTest/ConfigurationItem/
+backend/app/danamicTest/Regression/
+
+# 测试工具 - 排除大二进制和示例文件
+backend/app/testTools/outlineRewriter/*.zip
+backend/app/testTools/outlineRewriter/*.exe
+backend/app/testTools/outlineRewriter/*.pptx
+backend/app/testTools/outlineRewriter/*.gif
+backend/app/testTools/outlineRewriter/*.glb
+backend/app/testTools/outlineRewriter/*.webp
+
+# === 第三方工具代码（不入库） ===
+backend/app/codeReview/RegressionTest/utils/cline-main/
+backend/app/testTools/outlineRewriter/
+
+# === 其他 ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
