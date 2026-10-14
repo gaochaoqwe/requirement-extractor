@@ -69,6 +69,7 @@ class DbTarget:
     port: int
     description: str
     legacy_init: str = ""    # 相对 backend/ 的原有初始化脚本（用于 --bootstrap）
+    extra_legacy_inits: tuple[str, ...] = ()  # 同库额外的原有初始化脚本（--bootstrap 一并执行）
     extra_notes: str = ""
 
     @property
@@ -79,6 +80,15 @@ class DbTarget:
     def legacy_init_path(self) -> Path | None:
         return (BACKEND_DIR / self.legacy_init) if self.legacy_init else None
 
+    @property
+    def all_legacy_init_paths(self) -> list[Path]:
+        """全部需要在 bootstrap 阶段执行的原有 init 脚本（主脚本 + 额外脚本）。"""
+        paths = []
+        for rel in (self.legacy_init,) + self.extra_legacy_inits:
+            if rel:
+                paths.append(BACKEND_DIR / rel)
+        return paths
+
 
 def _build_target(
     key: str,
@@ -87,6 +97,7 @@ def _build_target(
     description: str,
     env_prefix: str | None = None,
     legacy_init: str = "",
+    extra_legacy_inits: tuple[str, ...] = (),
     extra_notes: str = "",
     default_host: str | None = None,
     default_port: int | None = None,
@@ -122,6 +133,7 @@ def _build_target(
         port=port,
         description=description,
         legacy_init=legacy_init,
+        extra_legacy_inits=extra_legacy_inits,
         extra_notes=extra_notes,
     )
 
@@ -164,6 +176,7 @@ TARGETS: list[DbTarget] = [
         description="静态分析（C 语言）：工具模式 + 普通模式 nm_* 共用本库",
         env_prefix="STATIC_POSTGRES_",
         legacy_init="app/staticAnalysis/filter/database/init_postgresql.py",
+        extra_legacy_inits=("app/staticAnalysis/normalModeC/database/init_postgresql.py",),
         extra_notes="另有 normalModeC 的 nm_* 表由 app/staticAnalysis/normalModeC/database/init_postgresql.py 建立。",
     ),
     _build_target(
@@ -173,6 +186,7 @@ TARGETS: list[DbTarget] = [
         description="静态分析（FPGA）：工具模式 + 普通模式 nm_fpga_* 共用本库",
         env_prefix="FPGA_POSTGRES_",
         legacy_init="app/staticAnalysis/filterFpga/database/init_postgresql.py",
+        extra_legacy_inits=("app/staticAnalysis/normalModeFpga/database/init_postgresql.py",),
         extra_notes="结构与 C 库同名但库独立，DDL 需分别执行。",
     ),
     _build_target(

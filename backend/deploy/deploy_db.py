@@ -136,13 +136,16 @@ def create_targets(targets: list[DbTarget], dry_run: bool) -> None:
         log("       请确认 PostgreSQL 已启动，且 backend/.env 中的管理员配置正确。")
         raise SystemExit(1)
 
-    with admin:
-        for t in targets:
-            try:
-                log(f"  {ensure_role(admin, t)}  ({t.description})")
-                log(f"  {ensure_database(admin, t)}")
-            except Exception as exc:                      # noqa: BLE001
-                log(f"  {ERR} [{t.key}] 建库失败: {exc}")
+    # 注意：不能使用 `with admin:` —— psycopg2 的连接上下文管理器
+    # 在 autocommit 模式下也会开启事务块，导致 CREATE DATABASE
+    # 报 "无法在事务块中运行"。这里直接循环，autocommit 下每句独立提交。
+    for t in targets:
+        try:
+            log(f"  {ensure_role(admin, t)}  ({t.description})")
+            log(f"  {ensure_database(admin, t)}")
+        except Exception as exc:                      # noqa: BLE001
+            log(f"  {ERR} [{t.key}] 建库失败: {exc}")
+    admin.close()
     log("")
 
 
@@ -154,27 +157,32 @@ def bootstrap_legacy(targets: list[DbTarget], dry_run: bool) -> None:
     log("  步骤 1.5/2  --bootstrap 复用各模块原有初始化脚本建立基础表")
     log("=" * 74)
     for t in targets:
-        script = t.legacy_init_path
-        if script is None or not script.exists():
+        scripts = t.all_legacy_init_paths
+        if not scripts:
             log(f"  {SKIP} [{t.key}] 无原有初始化脚本，跳过")
             continue
-        if dry_run:
-            log(f"  {SKIP} [演练] 将执行: {script.relative_to(script.parents[3])}")
-            continue
-        log(f"  [..] [{t.key}] 执行 {script.name} ...")
-        try:
-            proc = subprocess.run(
-                [sys.executable, "-X", "utf8", str(script), "--yes"],
-                cwd=str(script.parent),
-                capture_output=True, text=True, timeout=600,
-            )
-            if proc.returncode == 0:
-                log(f"  {OK} [{t.key}] 基础表初始化完成")
-            else:
-                log(f"  {WARN} [{t.key}] 脚本返回码 {proc.returncode}，"
-                    f"输出尾部: {(proc.stdout or proc.stderr or '').strip().splitlines()[-1:] }")
-        except Exception as exc:                          # noqa: BLE001
-            log(f"  {WARN} [{t.key}] 执行失败: {exc}")
+        for script in scripts:
+            if not script.exists():
+                log(f"  {SKIP} [{t.key}] 缺少脚本 {script.relative_to(script.parents[3])}，跳过")
+                continue
+            if dry_run:
+                log(f"  {SKIP} [演练] 将执行: {script.relative_to(script.parents[3])}")
+                continue
+            log(f"  [..] [{t.key}] 执行 {script.name} ...")
+            try:
+                proc = subprocess.run(
+                    [sys.executable, "-X", "utf8", str(script), "--yes"],
+                    cwd=str(script.parent),
+                    capture_output=True, text=True, timeout=600,
+                )
+                if proc.returncode == 0:
+                    log(f"  {OK} [{t.key}] {script.name} 基础表初始化完成")
+                else:
+                    tail = (proc.stdout or proc.stderr or "").strip().splitlines()[-1:]
+                    log(f"  {WARN} [{t.key}] {script.name} 返回码 {proc.returncode}，"
+                        f"输出尾部: {tail}")
+            except Exception as exc:                          # noqa: BLE001
+                log(f"  {WARN} [{t.key}] {script.name} 执行失败: {exc}")
     log("")
 
 
