@@ -22,12 +22,22 @@
       :limit="1"
       accept=".xlsx,.xlsm"
       :file-list="fileList"
+      :disabled="processing"
       :on-change="onFileChange"
       :on-remove="onFileRemove"
       :on-exceed="onExceed"
     >
       <div class="ir-upload-hint">点击或拖拽 Excel 文件到此处</div>
     </el-upload>
+
+    <GenerationProgress
+      :progress="gp.progress.value"
+      :items="gp.items.value"
+      :active="processing"
+      :elapsed="gp.elapsedSeconds.value"
+      unit="行"
+      :summary="rowSummary"
+    />
 
     <el-alert
       v-if="result"
@@ -65,7 +75,11 @@ import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import request from '@/api/request'
 
+import GenerationProgress from './GenerationProgress.vue'
+import { useGenerationProgress } from '../composables/useGenerationProgress'
+
 const GENERATE_URL = '/test-tools/test-case-assistant/issue-report/generate-opinions'
+const PROGRESS_URL = '/test-tools/test-case-assistant/issue-report/progress'
 
 const visible = ref(false)
 const selectedFile = ref(null)
@@ -73,19 +87,26 @@ const fileList = ref([])
 const processing = ref(false)
 const result = ref(null)
 
+const gp = useGenerationProgress(PROGRESS_URL, { startMessage: '正在上传 Excel 文件…' })
+
 const errorCount = computed(() => (Array.isArray(result.value?.errors) ? result.value.errors.length : 0))
 const resultType = computed(() => (errorCount.value > 0 ? 'warning' : 'success'))
 const resultTitle = computed(() => (errorCount.value > 0 ? '生成完成（部分行使用原文回退）' : '生成完成'))
+const rowSummary = computed(() => {
+  const count = Number(gp.progress.value?.updated_rows) || 0
+  return count > 0 ? `已生成 ${count} 行归零说明` : ''
+})
 
 const open = () => {
   visible.value = true
 }
 
 const resetState = () => {
+  processing.value = false
   selectedFile.value = null
   fileList.value = []
-  processing.value = false
   result.value = null
+  gp.reset()
 }
 
 const onClosed = () => {
@@ -126,15 +147,22 @@ const handleGenerate = async () => {
     return
   }
 
+  const sid = gp.start()
+
   const formData = new FormData()
   formData.append('file', selectedFile.value)
+  formData.append('session_id', sid)
 
   processing.value = true
   result.value = null
+
   try {
     const resp = await request.post(GENERATE_URL, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
+
+    // 收尾拉一次最终进度（失败原因也会体现在进度文案里）
+    await gp.poll()
 
     if (!resp?.success) {
       ElMessage.error(resp?.error || '生成失败')
@@ -142,17 +170,27 @@ const handleGenerate = async () => {
     }
 
     result.value = resp
+    const updatedRows = Number(resp.updated_rows) || 0
+    const skippedRows = Number(resp.skipped_rows) || 0
+    gp.markDone({
+      current: updatedRows,
+      total: updatedRows,
+      updated_rows: updatedRows,
+      message: `生成完成：已生成 ${updatedRows} 行归零说明，跳过 ${skippedRows} 行`,
+    })
 
-    if (resp.updated_rows > 0 && resp.download_url) {
+    if (updatedRows > 0 && resp.download_url) {
       await downloadBlob(resp.download_url, resp.download_filename || '问题报告单_归零说明.xlsx')
-      ElMessage.success(`生成完成，共处理 ${resp.updated_rows} 行`)
+      ElMessage.success(`生成完成，共处理 ${updatedRows} 行`)
     } else {
       ElMessage.warning('未找到可生成的行（T列研制单位意见为空）')
     }
   } catch (e) {
+    await gp.poll()
     ElMessage.error(e?.message || '生成失败')
   } finally {
     processing.value = false
+    gp.stop()
   }
 }
 

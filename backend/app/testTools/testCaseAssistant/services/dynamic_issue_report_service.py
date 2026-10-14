@@ -15,6 +15,7 @@ from openpyxl.styles import Alignment, Font, PatternFill
 
 from ..config.config import MODULE_UPLOAD_DIR
 from ..utils.logger import setup_session_logger
+from .generation_progress import fail_progress, finish_progress, update_progress
 from .test_case_service.test_case_design.case_design_ai_client import CaseDesignAIClient
 
 # 测试用例单 sheet 名关键字
@@ -228,37 +229,99 @@ class DynamicIssueReportService:
         workbook.close()
 
     async def process_file(self, file_path: str, original_filename: str) -> Dict[str, Any]:
+        update_progress(self.session_id, status='running', percent=3, message='正在打开并解析 Excel 文件…')
         try:
             workbook = openpyxl.load_workbook(file_path, data_only=True)
         except Exception as e:
+            fail_progress(self.session_id, f'无法解析Excel文件: {e}')
             return {'success': False, 'error': f'无法解析Excel文件: {e}'}
 
         try:
             sheet_name = self._find_case_sheet(workbook)
             if not sheet_name:
-                return {'success': False, 'error': f'未找到包含“{CASE_SHEET_KEYWORD}”的工作表'}
+                msg = f'未找到包含“{CASE_SHEET_KEYWORD}”的工作表'
+                fail_progress(self.session_id, msg)
+                return {'success': False, 'error': msg}
 
             worksheet = workbook[sheet_name]
+            update_progress(
+                self.session_id,
+                percent=8,
+                message=f'正在筛选工作表「{sheet_name}」中测试结论为“不通过”的用例…',
+            )
             groups = self._collect_failed_cases(worksheet)
 
             if not groups:
-                return {'success': False, 'error': '未找到测试结论为“不通过”的用例'}
+                msg = '未找到测试结论为“不通过”的用例'
+                fail_progress(self.session_id, msg)
+                return {'success': False, 'error': msg}
 
-            self.logger.info('动态测试问题单：共 %s 个测试项存在不通过用例', len(groups))
+            total = len(groups)
+            self.logger.info('动态测试问题单：共 %s 个测试项存在不通过用例', total)
+            update_progress(
+                self.session_id,
+                status='running',
+                percent=10,
+                current=0,
+                total=total,
+                message=f'共 {total} 个测试项存在不通过用例，开始逐项用 AI 生成问题单…',
+            )
 
             all_issues: List[Dict[str, str]] = []
             errors: List[Dict[str, Any]] = []
 
-            for test_item_name, cases in groups.items():
+            for index, (test_item_name, cases) in enumerate(groups.items(), 1):
+                # 进度区间：10% -> 95%，按测试项均匀推进
+                started_percent = 10 + int(85 * (index - 1) / total)
+                update_progress(
+                    self.session_id,
+                    status='running',
+                    percent=started_percent,
+                    current=index,
+                    total=total,
+                    current_label=test_item_name,
+                    updated_rows=len(all_issues),
+                    message=f'正在生成第 {index}/{total} 个测试项的问题单：{test_item_name}',
+                )
+
                 generated, err = await self._generate_issues(test_item_name, cases)
                 if generated:
                     all_issues.extend(generated)
+                    update_progress(
+                        self.session_id,
+                        percent=10 + int(85 * index / total),
+                        current=index,
+                        total=total,
+                        current_label=test_item_name,
+                        updated_rows=len(all_issues),
+                        append_item={
+                            'name': test_item_name,
+                            'ok': True,
+                            'detail': f'生成 {len(generated)} 条问题单',
+                        },
+                        message=f'已完成第 {index}/{total} 个测试项：{test_item_name}（{len(generated)} 条）',
+                    )
                 else:
                     # AI 失败时回退，保证该测试项仍出现在问题单中
                     all_issues.append(self._build_fallback_issue(test_item_name, cases))
                     errors.append({'test_item_name': test_item_name, 'error': err or 'AI生成失败，已回退'})
                     self.logger.warning('动态测试问题单：测试项 %s 生成失败 %s', test_item_name, err)
+                    update_progress(
+                        self.session_id,
+                        percent=10 + int(85 * index / total),
+                        current=index,
+                        total=total,
+                        current_label=test_item_name,
+                        updated_rows=len(all_issues),
+                        append_item={
+                            'name': test_item_name,
+                            'ok': False,
+                            'detail': f'AI 生成失败，已回退：{err or "未知原因"}',
+                        },
+                        message=f'第 {index}/{total} 个测试项：{test_item_name} AI 生成失败，已回退',
+                    )
 
+            update_progress(self.session_id, percent=96, message='正在汇总导出问题单 Excel…')
             output_filename = f'dynamic_issue_report_{self.session_id}.xlsx'
             self._write_output(all_issues, OUTPUT_DIR / output_filename)
 
@@ -266,6 +329,16 @@ class DynamicIssueReportService:
             self.logger.info(
                 '动态测试问题单：生成完成 测试项=%s 问题单=%s errors=%s',
                 len(groups), len(all_issues), len(errors),
+            )
+            finish_progress(
+                self.session_id,
+                message=(
+                    f'生成完成：涉及 {total} 个测试项，共生成 {len(all_issues)} 条问题单'
+                    + (f'，其中 {len(errors)} 个测试项使用了回退问题单' if errors else '')
+                ),
+                current=total,
+                total=total,
+                updated_rows=len(all_issues),
             )
 
             return {
@@ -279,6 +352,7 @@ class DynamicIssueReportService:
             }
         except Exception as e:
             self.logger.exception('动态测试问题单：处理文件失败')
+            fail_progress(self.session_id, f'处理文件时出错: {e}')
             return {'success': False, 'error': f'处理文件时出错: {e}'}
         finally:
             workbook.close()

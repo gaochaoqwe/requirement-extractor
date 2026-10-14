@@ -692,15 +692,24 @@ function requestFix(problem) {
 }
 
 // 头部「批量修复 ▾」
+// 注意：<script setup> 中模板可直接用 selectedNode，但脚本里必须走 props.selectedNode，
+// 否则会抛 ReferenceError，导致点击后事件根本不会 emit（表现为“点了没反应”）。
 function handleBatchFixCommand(command) {
-  if (command === 'file') {
-    emit('requestBatchFix', {
-      type: 'file',
-      value: selectedNode.value?.file_path || selectedNode.value?.name,
-      label: `文件 ${selectedNode.value?.name || ''}`,
-      candidates: props.problems
-    })
+  if (command !== 'file') return
+
+  const node = props.selectedNode
+  const target = node?.file_path || node?.name
+  if (!target) {
+    ElMessage.warning('请先在代码树中选择一个文件')
+    return
   }
+
+  emit('requestBatchFix', {
+    type: 'file',
+    value: target,
+    label: `文件 ${node?.name || ''}`,
+    candidates: props.problems
+  })
 }
 
 // 撤销已应用的修复
@@ -917,9 +926,11 @@ watch(
 
 .problem-title {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  gap: 8px 12px;
+  padding: 12px 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   background: rgba(255, 255, 255, 0.8);
@@ -932,8 +943,9 @@ watch(
 .problem-title-left {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  flex: 1 1 220px;
   min-width: 0;
 }
 
@@ -944,11 +956,11 @@ watch(
 }
 
 .problem-level-tag {
-  margin-left: 8px;
+  margin-left: 0;
 }
 
 .problem-status-tag {
-  margin-left: 8px;
+  margin-left: 0;
 }
 
 /* 状态指示器（与函数审查保持一致） */
@@ -1000,12 +1012,27 @@ watch(
 .problem-title-right {
   display: flex;
   align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2px;
+  flex: 0 0 auto;
+  /* 换行后这一组仍靠右对齐 */
+  margin-left: auto;
 }
 
 .problem-title-right .el-button + .el-button {
   margin-left: 0;
+}
+
+/* 操作按钮紧凑化，避免窄面板内互相挤压/遮挡 */
+.problem-title-right .el-button {
+  padding: 4px 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.problem-title-right .el-button .el-icon + span {
+  margin-left: 2px;
 }
 
 .collapse-icon {
@@ -1013,7 +1040,7 @@ watch(
   cursor: pointer;
   color: #909399;
   font-size: 14px;
-  margin-left: 8px;
+  margin-left: 6px;
 }
 
 .collapse-icon.collapsed {

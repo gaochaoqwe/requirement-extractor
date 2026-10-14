@@ -1,16 +1,29 @@
+# =============================================================================
+# 后端依赖清单
+# 版本已与 aiTest_new 环境（Python 3.8.20）实际安装版本逐项对齐
+# 核对时间：2026-10-14
+#
+# 说明：本项目部署采用「整体搬 conda 环境」方式，本文件主要用于记录版本 + 内网重建环境。
+#       内网重装请先下载好对应 whl（离线环境 pip 无法联网解析）。
+# =============================================================================
+
 # Web Framework
 fastapi==0.115.12
 uvicorn==0.33.0
 a2wsgi==1.10.8
-flask==3.0.3
+
+# Flask 系列：历史遗留。run_fastapi.py 已改为 FastAPI（源码注释：「已移除对 Flask 的依赖」），
+# 当前环境仍装着，保留以免影响未排查的子模块。
+flask==2.2.5
 flask-cors==3.0.10
 flask-sqlalchemy==3.1.1
-Werkzeug==3.0.6
+Werkzeug==2.3.8          # ★必须与 flask 2.2.x 配套，不要升到 3.x（会不兼容）
 
 # Database
 sqlalchemy==2.0.41
 alembic==1.13.1
-psycopg2-binary==2.9.9  # PostgreSQL adapter for high concurrency
+psycopg2==2.9.9          # ★conda 版（非 psycopg2-binary），依赖 libpq-12.20；
+                         #   内网若按本文件 pip 装，需备 psycopg2-binary==2.9.9 的对应 whl
 
 # Document Processing
 python-docx==0.8.11
@@ -19,7 +32,8 @@ python-magic-bin==0.4.14; sys_platform == 'win32'
 docx2txt==0.9
 lxml==5.4.0
 chardet==5.2.0
-pypinyin==0.53.0
+# pypinyin==0.53.0       # 可选：仅 danamicTest/.../pinyin_utils.py 延迟导入，缺失时走内置映射表兜底。
+                         # 当前环境未安装；需要「拼音首字母」完整能力时再装。
 
 # AI & Processing
 openai==1.39.0
@@ -29,8 +43,8 @@ tree-sitter-languages==1.10.2
 
 # Utils
 python-dotenv==1.0.1
-requests==2.32.3
-httpx==0.27.0
+requests==2.31.0
+httpx==0.27.2
 httpcore==1.0.9
 tenacity==9.0.0
 propcache==0.2.0
@@ -39,8 +53,9 @@ propcache==0.2.0
 anyio==4.5.2
 aiohttp==3.10.11
 aiohappyeyeballs==2.4.4
-asyncio==3.4.3
 nest-asyncio==1.6.0
+# ★不要安装 PyPI 上的 asyncio 包：asyncio 自 Python 3.4 起已是标准库，
+#   该 backport 包只适用于 3.3，装上会与 stdlib 冲突且毫无用处。
 
 # API
 pydantic==2.10.6
@@ -53,11 +68,15 @@ pytest-cov==4.1.0
 black==24.4.0
 flake8==7.1.1
 
-python-multipart
-spire.doc
-lizard
-pyjwt
-//单独装cnorc[base]
+# Others
+python-multipart==0.0.20
+spire-doc==13.6.4
+lizard==1.17.31
+PyJWT==2.9.0
 
-//libretranslate要单独安装,并且不要指定版本，后续考虑移除libretranslate
-//pyinstaller==6.13.0  pyinstaller-hooks-contrib==2025.4暂时不装
+# =============================================================================
+# 以下依赖一律“单独安装”，不要写进本文件（否则 pip install -r 会失败或过慢）：
+#   cnocr[base]     —— OCR 能力，体积大
+#   libretranslate  —— 离线翻译，需单独安装且不要锁版本，后续考虑移除
+#   pyinstaller==6.13.0 / pyinstaller-hooks-contrib==2025.4 —— 仅打包用，暂不装
+# =============================================================================

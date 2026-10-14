@@ -23,13 +23,13 @@
 
       <el-tooltip content="上传问题报告单，根据T列研制单位意见生成AA列问题确认意见/归零说明" placement="bottom">
         <el-button class="btn-amber" @click="issueReportOpinionDialogRef?.open()">
-          问题报告单归零
+          归零意见生成
         </el-button>
       </el-tooltip>
 
-      <el-tooltip content="上传测试用例单，按测试项为测试结论为“不通过”的用例生成问题单" placement="bottom">
+      <el-tooltip content="上传测试用例单，按测试项为测试结论为“不通过”的用例生成动态测试问题单" placement="bottom">
         <el-button class="btn-orange" @click="dynamicIssueReportDialogRef?.open()">
-          生成问题单
+          动态测试问题单生成
         </el-button>
       </el-tooltip>
 

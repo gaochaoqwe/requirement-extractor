@@ -1,10 +1,16 @@
-"""问题报告单归零说明生成 API。"""
-import uuid
+"""问题报告单归零意见生成 API。"""
 from pathlib import Path
+from typing import Optional
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 
+from ..services.generation_progress import (
+    get_progress,
+    resolve_session_id,
+    sanitize_session_id,
+    start_progress,
+)
 from ..services.issue_report_opinion_service import (
     OPINION_OUTPUT_DIR,
     IssueReportOpinionService,
@@ -16,13 +22,21 @@ XLSX_MEDIA_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.s
 
 
 @router.post('/issue-report/generate-opinions')
-async def generate_issue_report_opinions(file: UploadFile = File(...)):
-    """上传包含“问题报告单”工作表的 Excel，生成问题确认意见/归零说明并返回下载地址。"""
+async def generate_issue_report_opinions(
+    file: UploadFile = File(...),
+    session_id: Optional[str] = Form(None),
+):
+    """上传包含“问题报告单”工作表的 Excel，生成问题确认意见/归零说明并返回下载地址。
+
+    前端可传入自生成的 session_id，用于在生成过程中轮询 `/issue-report/progress/{session_id}`。
+    """
     filename = file.filename or ''
     if not filename.lower().endswith(('.xlsx', '.xlsm')):
         raise HTTPException(status_code=400, detail='只支持 Excel 文件(.xlsx, .xlsm)')
 
-    session_id = str(uuid.uuid4())
+    session_id = resolve_session_id(session_id)
+    start_progress(session_id, message='正在接收上传的 Excel 文件…')
+
     service = IssueReportOpinionService(session_id)
 
     save_path = OPINION_OUTPUT_DIR / f'{session_id}_source.xlsx'
@@ -47,6 +61,15 @@ async def generate_issue_report_opinions(file: UploadFile = File(...)):
         'download_filename': result.get('download_filename'),
         'download_url': f'/test-tools/test-case-assistant/issue-report/download/{result.get("output_filename")}',
     }
+
+
+@router.get('/issue-report/progress/{session_id}')
+async def get_issue_report_opinion_progress(session_id: str):
+    """查询归零意见生成进度（供前端轮询）。
+
+    返回 status: running / done / error / not_found。
+    """
+    return get_progress(sanitize_session_id(session_id))
 
 
 @router.get('/issue-report/download/{output_filename}')

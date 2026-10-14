@@ -15,6 +15,7 @@ from openpyxl.styles import Alignment
 
 from ..config.config import MODULE_UPLOAD_DIR
 from ..utils.logger import setup_session_logger
+from .generation_progress import fail_progress, finish_progress, update_progress
 from .test_case_service.test_case_design.case_design_ai_client import CaseDesignAIClient
 
 # 问题报告单工作表名关键字
@@ -105,32 +106,69 @@ class IssueReportOpinionService:
 
     async def process_file(self, file_path: str, original_filename: str) -> Dict[str, Any]:
         """解析 Excel，按行生成归零说明并写入 AA 列，另存为新文件。"""
+        update_progress(self.session_id, status='running', percent=3, message='正在打开并解析 Excel 文件…')
         try:
             workbook = openpyxl.load_workbook(file_path)
         except Exception as e:
+            fail_progress(self.session_id, f'无法解析Excel文件: {e}')
             return {'success': False, 'error': f'无法解析Excel文件: {e}'}
 
         try:
             sheet_name = self._find_sheet_name(workbook)
             if not sheet_name:
-                return {'success': False, 'error': f'未找到包含“{ISSUE_REPORT_SHEET_KEYWORD}”的工作表'}
+                msg = f'未找到包含“{ISSUE_REPORT_SHEET_KEYWORD}”的工作表'
+                fail_progress(self.session_id, msg)
+                return {'success': False, 'error': msg}
 
             worksheet = workbook[sheet_name]
+            update_progress(self.session_id, percent=6, message=f'正在定位工作表「{sheet_name}」的意见列…')
             header_row, opinion_col, confirmation_col = self._locate_columns(worksheet)
             self.logger.info(
                 '问题报告单归零说明：sheet=%s header_row=%s opinion_col=%s confirmation_col=%s',
                 sheet_name, header_row, opinion_col, confirmation_col,
             )
 
-            updated_rows = 0
+            # 第一遍：先扫描出所有「研制单位意见」非空、需要生成归零说明的行
+            last_row = worksheet.max_row or 0
+            pending_rows: List[int] = []
             skipped_rows = 0
+            for row in range(header_row + 1, last_row + 1):
+                opinion_text = str(worksheet.cell(row=row, column=opinion_col).value or '').strip()
+                if opinion_text:
+                    pending_rows.append(row)
+                else:
+                    skipped_rows += 1
+
+            total = len(pending_rows)
+            update_progress(
+                self.session_id,
+                status='running',
+                percent=10,
+                current=0,
+                total=total,
+                message=(
+                    f'共 {total} 行需要生成归零说明（跳过 {skipped_rows} 行空白意见），开始逐行用 AI 生成…'
+                    if total else '未找到可生成的行（“研制单位意见”列为空）'
+                ),
+            )
+
+            updated_rows = 0
             errors: List[Dict[str, Any]] = []
 
-            for row in range(header_row + 1, (worksheet.max_row or 0) + 1):
+            for index, row in enumerate(pending_rows, 1):
                 opinion_text = str(worksheet.cell(row=row, column=opinion_col).value or '').strip()
-                if not opinion_text:
-                    skipped_rows += 1
-                    continue
+
+                # 进度区间：10% -> 95%，按行均匀推进
+                update_progress(
+                    self.session_id,
+                    status='running',
+                    percent=10 + int(85 * (index - 1) / total),
+                    current=index,
+                    total=total,
+                    current_label=f'第 {row} 行',
+                    updated_rows=updated_rows,
+                    message=f'正在生成第 {index}/{total} 行归零说明（工作表第 {row} 行）…',
+                )
 
                 ai_text, err = await self._generate_opinion(opinion_text)
                 if not ai_text:
@@ -146,6 +184,23 @@ class IssueReportOpinionService:
                 cell.alignment = Alignment(wrap_text=True, vertical='top')
                 updated_rows += 1
 
+                update_progress(
+                    self.session_id,
+                    percent=10 + int(85 * index / total),
+                    current=index,
+                    total=total,
+                    current_label=f'第 {row} 行',
+                    updated_rows=updated_rows,
+                    append_item={
+                        'name': f'第 {row} 行',
+                        'ok': not err,
+                        'detail': '已生成归零说明' if not err
+                        else f'AI 生成失败，已回退原文：{err or "未知原因"}',
+                    },
+                    message=f'已完成第 {index}/{total} 行（工作表第 {row} 行）',
+                )
+
+            update_progress(self.session_id, percent=96, message='正在保存生成结果 Excel…')
             output_filename = f'issue_report_opinion_{self.session_id}.xlsx'
             output_path = OPINION_OUTPUT_DIR / output_filename
             workbook.save(output_path)
@@ -155,6 +210,16 @@ class IssueReportOpinionService:
             self.logger.info(
                 '问题报告单归零说明：生成完成 updated=%s skipped=%s errors=%s -> %s',
                 updated_rows, skipped_rows, len(errors), output_path,
+            )
+            finish_progress(
+                self.session_id,
+                message=(
+                    f'生成完成：已生成 {updated_rows} 行归零说明，跳过 {skipped_rows} 行'
+                    + (f'，其中 {len(errors)} 行 AI 生成失败已回退原文' if errors else '')
+                ),
+                current=updated_rows,
+                total=total,
+                updated_rows=updated_rows,
             )
 
             return {
@@ -171,6 +236,7 @@ class IssueReportOpinionService:
             }
         except Exception as e:
             self.logger.exception('问题报告单归零说明：处理文件失败')
+            fail_progress(self.session_id, f'处理文件时出错: {e}')
             return {'success': False, 'error': f'处理文件时出错: {e}'}
         finally:
             workbook.close()

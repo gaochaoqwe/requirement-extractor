@@ -1,13 +1,19 @@
 """动态测试问题单生成 API。"""
-import uuid
 from pathlib import Path
+from typing import Optional
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 
 from ..services.dynamic_issue_report_service import (
     OUTPUT_DIR,
     DynamicIssueReportService,
+)
+from ..services.generation_progress import (
+    get_progress,
+    resolve_session_id,
+    sanitize_session_id,
+    start_progress,
 )
 
 router = APIRouter()
@@ -16,13 +22,21 @@ XLSX_MEDIA_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.s
 
 
 @router.post('/dynamic-issue-report/generate')
-async def generate_dynamic_issue_report(file: UploadFile = File(...)):
-    """上传包含“测试用例单”工作表的 Excel，按测试项为不通过用例生成问题单并返回下载地址。"""
+async def generate_dynamic_issue_report(
+    file: UploadFile = File(...),
+    session_id: Optional[str] = Form(None),
+):
+    """上传包含“测试用例单”工作表的 Excel，按测试项为不通过用例生成问题单并返回下载地址。
+
+    前端可传入自生成的 session_id，用于在生成过程中轮询 `/dynamic-issue-report/progress/{session_id}`。
+    """
     filename = file.filename or ''
     if not filename.lower().endswith(('.xlsx', '.xlsm')):
         raise HTTPException(status_code=400, detail='只支持 Excel 文件(.xlsx, .xlsm)')
 
-    session_id = str(uuid.uuid4())
+    session_id = resolve_session_id(session_id)
+    start_progress(session_id, message='正在接收上传的 Excel 文件…')
+
     service = DynamicIssueReportService(session_id)
 
     save_path = OUTPUT_DIR / f'{session_id}_source.xlsx'
@@ -47,6 +61,15 @@ async def generate_dynamic_issue_report(file: UploadFile = File(...)):
         'download_filename': result.get('download_filename'),
         'download_url': f'/test-tools/test-case-assistant/dynamic-issue-report/download/{result.get("output_filename")}',
     }
+
+
+@router.get('/dynamic-issue-report/progress/{session_id}')
+async def get_dynamic_issue_report_progress(session_id: str):
+    """查询动态测试问题单生成进度（供前端轮询）。
+
+    返回 status: running / done / error / not_found。
+    """
+    return get_progress(sanitize_session_id(session_id))
 
 
 @router.get('/dynamic-issue-report/download/{output_filename}')
